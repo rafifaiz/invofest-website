@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface LoginFormData {
     email: string;
@@ -72,8 +72,9 @@ const loginSchema = z.object({
 };
 
 export const Login = () => {
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
-    const [loginError, setLoginError] = useState("");
+    const [loginError, setLoginError] = useState(""); 
 
     const {
         register,
@@ -93,7 +94,8 @@ export const Login = () => {
         // Simulasi login (demo: email: admin@invofest.com, password: admin123)
         if (data.email === "admin@invofest.com" && data.password === "admin123") {
         console.log("Login berhasil:", data);
-        alert("✅ Login berhasil! Selamat datang di Invofest!");
+        alert("✅ Login berhasil! Menuju dashboard admin...");
+        navigate("/dashboard");
         reset();
         } else {
         setLoginError("Email atau password salah!");
