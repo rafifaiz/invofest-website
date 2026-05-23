@@ -7,160 +7,157 @@ import { Calendar, Clock, MapPin, Building } from 'lucide-react';
 
 const Talkshow = () => {
     const openWhatsApp = () => {
-        window.open('https://api.whatsapp.com/send/?phone=62895605919551&text=Halo+Kak%2C+Saya+Ingin+Bertanya+mengenai+Invofest+2025...&type=phone_number&app_absent=0', '_blank');
+        window.open('https://api.whatsapp.com/send/?phone=62895605919551&text=Halo+Kak%2C+Saya+Ingin+Bertanya+mengenai+EQUATOR_APT+%2F%2F+SYSTEM_BREACH...&type=phone_number&app_absent=0', '_blank');
     };
 
     return (
-        <div className="pt-16 md:pt-20">
+        <div className="pt-16 md:pt-20 bg-black text-gray-300 min-h-screen">
             {/* 1. HERO SECTION */}
-            <section className="relative min-h-[90vh] flex flex-col md:flex-row items-center px-8 md:px-24 py-12">
+            <section className="relative min-h-[90vh] flex flex-col md:flex-row items-center px-8 md:px-24 py-12 bg-black">
                 <ScrollReveal direction="left" className="md:w-1/2 z-10 text-left">
-                    <h1 className="text-5xl md:text-7xl font-black text-[#4A1D2C] mb-4 tracking-tight">
-                        IT Talkshow
+                    <h1 className="text-5xl md:text-7xl font-black text-emerald-500 mb-4 tracking-tight uppercase">
+                        Red Team Talkshow
                     </h1>
-                    <p className="text-2xl md:text-3xl font-bold text-[#802B44] mb-6">
-                        "Humanizing Technology: Kolaborasi Manusia dan AI di Masa Depan"
+                    <p className="text-2xl md:text-3xl font-bold text-gray-100 mb-6 font-mono">
+                        "From Access to Accountability: Red Team Ethics"
                     </p>
-                    <p className="text-gray-600 text-lg mb-8 leading-relaxed max-w-xl font-medium">
-                        Talkshow "Humanizing Technology: Kolaborasi Manusia dan AI di Masa Depan" Sebuah diskusi interaktif 
-                        yang mengeksplorasi cara mengintegrasikan nilai-nilai kemanusiaan seperti etika, empati, dan kreativitas 
-                        ke dalam pengembangan kecerdasan buatan. Yang bertujuan menginspirasi audiens untuk membangun dan 
-                        memanfaatkan AI sebagai alat kolaboratif yang memperkuat potensi unik manusia, bukan sebagai penggantinya.
+                    <p className="text-gray-400 text-lg mb-8 leading-relaxed max-w-xl font-medium">
+                        Red Team Talkshow: sebuah diskusi interaktif tentang praktik engagement red team yang bertanggung jawab—mencakup ethics, ruang lingkup (scope), threat modeling, dan pelaporan temuan yang actionable. Tujuan acara ini adalah membangun pemahaman bahwa pengujian ofensif harus selalu diikuti accountability dan minimisasi risiko.
                     </p>
                     <div className="flex flex-wrap gap-4">
-                        <Button label="DAFTAR SEKARANG" variant="primary" onClick={openWhatsApp} />
+                        <button 
+                            onClick={openWhatsApp}
+                            className="px-6 py-3 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 transition-colors uppercase tracking-wider text-sm shadow-lg shadow-emerald-600/20"
+                        >
+                            DAFTAR SEKARANG
+                        </button>
                     </div>
                 </ScrollReveal>
 
                 <ScrollReveal direction="right" delay={200} className="md:w-1/2 flex justify-center mt-12 md:mt-0 relative">
                     <img 
-                        src="https://www.invofest-harkatnegeri.com/assets/Maskot-Talkshow.png" 
+                        src="https://media.licdn.com/dms/image/v2/D4D12AQEfi-qapKadjw/article-cover_image-shrink_720_1280/B4DZiOAZ6gHYAI-/0/1754729128083?e=2147483647&v=beta&t=8PAU9BdqvhpnvaIMEmjauUg1rka6vxs68SrjO7pD7fo" 
                         alt="Maskot Talkshow" 
-                        className="w-full max-w-[550px] drop-shadow-2xl animate-bounce-slow" 
+                        className="w-full max-w-[550px] drop-shadow-2xl animate-bounce-slow opacity-90 filter brightness-95" 
                     />
-                    <div className="absolute -bottom-20 w-full h-[300px] bg-gradient-to-t from-[#FFF0F3] to-transparent -z-10"></div>
+                    <div className="absolute -bottom-20 w-full h-[300px] bg-gradient-to-t from-black to-transparent -z-10"></div>
                 </ScrollReveal>
             </section>
 
             {/* 2. TENTANG IT TALKSHOW */}
-            <section id="tentang" className="bg-[#FFF0F3] py-24 px-8 md:px-24">
+            <section id="tentang" className="bg-zinc-950 py-24 px-8 md:px-24 border-t border-zinc-900">
                 <ScrollReveal className="max-w-5xl mx-auto text-center">
-                    <h2 className="text-4xl md:text-5xl font-bold text-[#802B44] mb-8">Tentang IT Talkshow</h2>
-                    <p className="text-gray-700 leading-relaxed font-medium">
-                        Seiring teknologi, khususnya kecerdasan buatan (AI), yang semakin meresap ke dalam setiap aspek kehidupan kita, 
-                        muncul sebuah pertanyaan fundamental: Apakah kita sedang menciptakan teknologi yang melayani manusia, atau justru sebaliknya? 
-                        Untuk menjawab pertanyaan tersebut, kami mempersembahkan talkshow berskala nasional: 
-                        "Humanizing Technology: Kolaborasi Manusia dan AI di Masa Depan." Acara ini dirancang bukan untuk membahas teknologi 
-                        sebagai entitas yang dingin dan terpisah, melainkan untuk menggali bagaimana kita dapat menanamkan nilai-nilai kemanusiaan—
-                        seperti empati, etika, dan kreativitas—ke dalam inti pengembangan AI. Kami akan mengupas tuntas visi masa depan 
-                        di mana AI tidak menjadi pesaing, tetapi menjadi mitra kolaboratif yang memperkuat potensi unik manusia.
+                    <h2 className="text-4xl md:text-5xl font-bold text-emerald-500 mb-8 uppercase tracking-wider">Tentang IT Talkshow</h2>
+                    <p className="text-gray-400 leading-relaxed font-medium text-lg max-w-4xl mx-auto">
+                        Talkshow ini membahas praktik red team/pentest yang bertanggung jawab: bagaimana menentukan scope, melakukan threat modeling, menjaga batas etika, dan memastikan setiap temuan ditulis serta ditindaklanjuti secara actionable. Materi menekankan bahwa pengujian ofensif bukan untuk “mencari celah”, melainkan untuk memperkuat sistem melalui accountability dan minimisasi risiko.
                     </p>
                 </ScrollReveal>
             </section>
 
             {/* 3. PEMBICARA */}
-            <section className="bg-white py-24 px-8 md:px-24">
+            <section className="bg-black py-24 px-8 md:px-24 border-t border-zinc-900">
                 <ScrollReveal className="text-center mb-16">
-                    <h2 className="text-4xl md:text-5xl font-bold text-[#802B44] mb-4">Temui Pembicara Khusus Kami</h2>
+                    <h2 className="text-4xl md:text-5xl font-bold text-gray-100 mb-4 uppercase tracking-wider">Temui Pembicara Khusus Kami</h2>
+                    <p className="text-gray-500 max-w-2xl mx-auto font-mono text-sm">Berdiskusi bersama para pakar dan profesional yang berpengalaman di bidangnya.</p>
                 </ScrollReveal>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
                     <ScrollReveal delay={0}>
-                        <div className="bg-white p-6 rounded-2xl border-r-8 border-b-8 border-[#802B44] shadow-xl text-center hover:-translate-y-2 transition-transform duration-300">
+                        <div className="bg-zinc-950 p-6 rounded-2xl border-r-8 border-b-8 border-emerald-600 shadow-2xl text-center hover:-translate-y-2 transition-transform duration-300 border border-zinc-900">
                             <img 
-                                src="https://www.invofest-harkatnegeri.com/assets/talkshow/talkshow%20ichsan.png" 
-                                alt="Moh. Ichsan Maulana" 
-                                className="w-32 h-32 mx-auto rounded-full object-cover mb-4 border-4 border-[#802B44]"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbWyvQB_LaIhOnCoReIB9IQ8lLtArN6w8B0w&s" 
+                                alt="Anonymous 1" 
+                                className="w-32 h-32 mx-auto rounded-full object-cover mb-4 border-4 border-emerald-500 grayscale hover:grayscale-0 transition-all"
                             />
-                            <h3 className="font-extrabold text-[#802B44] text-lg mb-2">Moh. Ichsan Maulana</h3>
-                            <p className="text-[#802B44] font-bold text-sm mb-1">Human Capital Information System (HCIS)</p>
-                            <p className="text-gray-500 font-medium text-xs">PT. Garuda Daya Pratama Sejahtera</p>
+                            <h3 className="font-extrabold text-gray-100 text-lg mb-2">Anonymous 1</h3>
+                            <p className="text-emerald-400 font-bold text-sm mb-1 font-mono">Red Team Specialist</p>
+                            <p className="text-gray-500 font-medium text-xs">Cyber Security Enggineer</p>
                         </div>
                     </ScrollReveal>
 
                     <ScrollReveal delay={100}>
-                        <div className="bg-white p-6 rounded-2xl border-r-8 border-b-8 border-[#802B44] shadow-xl text-center hover:-translate-y-2 transition-transform duration-300">
+                        <div className="bg-zinc-950 p-6 rounded-2xl border-r-8 border-b-8 border-emerald-600 shadow-2xl text-center hover:-translate-y-2 transition-transform duration-300 border border-zinc-900">
                             <img 
-                                src="https://www.invofest-harkatnegeri.com/assets/talkshow/talkshow%20zaim%20zamzami.png" 
-                                alt="M. Zaim Zamzami" 
-                                className="w-32 h-32 mx-auto rounded-full object-cover mb-4 border-4 border-[#802B44]"
+                                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOuvJJNZ5MK5rW9uM1JnzLXLgSKF9evWHEJGIiKpmc&s" 
+                                alt="Anonymous 2" 
+                                className="w-32 h-32 mx-auto rounded-full object-cover mb-4 border-4 border-emerald-500 grayscale hover:grayscale-0 transition-all"
                             />
-                            <h3 className="font-extrabold text-[#802B44] text-lg mb-2">M. Zaim Zamzami</h3>
-                            <p className="text-[#802B44] font-bold text-sm mb-1">Programmer</p>
-                            <p className="text-gray-500 font-medium text-xs">PT. Pertamina Drilling Service Indonesia</p>
+                            <h3 className="font-extrabold text-gray-100 text-lg mb-2">Anonymous 2</h3>
+                            <p className="text-emerald-400 font-bold text-sm mb-1 font-mono">Penetration Tester</p>
+                            <p className="text-gray-500 font-medium text-xs">Bug Hunter</p>
                         </div>
                     </ScrollReveal>
 
                     <ScrollReveal delay={200}>
-                        <div className="bg-white p-6 rounded-2xl border-r-8 border-b-8 border-[#802B44] shadow-xl text-center hover:-translate-y-2 transition-transform duration-300">
+                        <div className="bg-zinc-950 p-6 rounded-2xl border-r-8 border-b-8 border-emerald-600 shadow-2xl text-center hover:-translate-y-2 transition-transform duration-300 border border-zinc-900">
                             <img 
-                                src="https://www.invofest-harkatnegeri.com/assets/talkshow/talkshow%20daffa.png" 
-                                alt="Daffa Zuhdan Muhtar" 
-                                className="w-32 h-32 mx-auto rounded-full object-cover mb-4 border-4 border-[#802B44]"
+                                src="https://it.proxsisgroup.com/wp-content/uploads/2023/11/Kemenhan-Indonesia-Kena-Hack-RI-Darurat-Cyber-Apa-Dampaknya.jpg" 
+                                alt="Anonymous 3" 
+                                className="w-32 h-32 mx-auto rounded-full object-cover mb-4 border-4 border-emerald-500 grayscale hover:grayscale-0 transition-all"
                             />
-                            <h3 className="font-extrabold text-[#802B44] text-lg mb-2">Daffa Zuhdan Muhtar</h3>
-                            <p className="text-[#802B44] font-bold text-sm mb-1">Android Developer</p>
-                            <p className="text-gray-500 font-medium text-xs">PT. Astra Internasional</p>
+                            <h3 className="font-extrabold text-gray-100 text-lg mb-2">Anonymous 3</h3>
+                            <p className="text-emerald-400 font-bold text-sm mb-1 font-mono">Pentest | Web Developer</p>
+                            <p className="text-gray-500 font-medium text-xs">Security Research</p>
                         </div>
                     </ScrollReveal>
 
                     <ScrollReveal delay={300}>
-                        <div className="bg-white p-6 rounded-2xl border-r-8 border-b-8 border-[#802B44] shadow-xl text-center hover:-translate-y-2 transition-transform duration-300">
+                        <div className="bg-zinc-950 p-6 rounded-2xl border-r-8 border-b-8 border-emerald-600 shadow-2xl text-center hover:-translate-y-2 transition-transform duration-300 border border-zinc-900">
                             <img 
-                                src="https://www.invofest-harkatnegeri.com/assets/talkshow/talkshow%20bayu.png" 
-                                alt="Bayu Adi Prasetiyo" 
-                                className="w-32 h-32 mx-auto rounded-full object-cover mb-4 border-4 border-[#802B44]"
+                                src="https://img-c.udemycdn.com/course/480x270/4996128_77c7_5.jpg" 
+                                alt="Anonymous 4" 
+                                className="w-32 h-32 mx-auto rounded-full object-cover mb-4 border-4 border-emerald-500 grayscale hover:grayscale-0 transition-all"
                             />
-                            <h3 className="font-extrabold text-[#802B44] text-lg mb-2">Bayu Adi Prasetiyo</h3>
-                            <p className="text-[#802B44] font-bold text-sm mb-1">Software Engineer</p>
-                            <p className="text-gray-500 font-medium text-xs">KOMPAS.ID</p>
+                            <h3 className="font-extrabold text-gray-100 text-lg mb-2">Anonymous 4</h3>
+                            <p className="text-emerald-400 font-bold text-sm mb-1 font-mono">Cyber Security Profesoenal</p>
+                            <p className="text-gray-500 font-medium text-xs">Osint Intellegence</p>
                         </div>
                     </ScrollReveal>
                 </div>
             </section>
 
             {/* 4. PELAKSANAAN */}
-            <section className="bg-[#FFF0F3] py-24 px-8 md:px-24">
+            <section className="bg-zinc-950 py-24 px-8 md:px-24 border-t border-zinc-900">
                 <ScrollReveal className="max-w-4xl mx-auto text-center">
-                    <h2 className="text-4xl md:text-5xl font-bold text-[#802B44] mb-12">Pelaksanaan IT Talkshow</h2>
+                    <h2 className="text-4xl md:text-5xl font-bold text-emerald-500 mb-12 uppercase tracking-wider">Pelaksanaan IT Talkshow</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div className="bg-white p-8 rounded-2xl shadow-lg flex items-center gap-6">
-                            <div className="bg-[#802B44] w-14 h-14 rounded-full flex items-center justify-center text-white shrink-0">
+                        <div className="bg-black p-8 rounded-2xl shadow-2xl flex items-center gap-6 border border-zinc-900">
+                            <div className="bg-emerald-600 w-14 h-14 rounded-full flex items-center justify-center text-white shrink-0 shadow-lg shadow-emerald-500/20">
                                 <Calendar size={28} />
                             </div>
                             <div className="text-left">
-                                <p className="text-[#802B44] font-bold text-lg mb-1">Hari & Tanggal</p>
-                                <p className="text-gray-700 text-xl font-extrabold">Senin, 24 November 2025</p>
+                                <p className="text-emerald-400 font-bold text-sm font-mono uppercase tracking-wider">// Hari & Tanggal</p>
+                                <p className="text-gray-200 text-xl font-extrabold mt-1">Senin, 24 November 2025</p>
                             </div>
                         </div>
 
-                        <div className="bg-white p-8 rounded-2xl shadow-lg flex items-center gap-6">
-                            <div className="bg-[#802B44] w-14 h-14 rounded-full flex items-center justify-center text-white shrink-0">
+                        <div className="bg-black p-8 rounded-2xl shadow-2xl flex items-center gap-6 border border-zinc-900">
+                            <div className="bg-emerald-600 w-14 h-14 rounded-full flex items-center justify-center text-white shrink-0 shadow-lg shadow-emerald-500/20">
                                 <Clock size={28} />
                             </div>
                             <div className="text-left">
-                                <p className="text-[#802B44] font-bold text-lg mb-1">Waktu</p>
-                                <p className="text-gray-700 text-xl font-extrabold">08.00 WIB - 12.00 WIB</p>
+                                <p className="text-emerald-400 font-bold text-sm font-mono uppercase tracking-wider">// Waktu</p>
+                                <p className="text-gray-200 text-xl font-extrabold mt-1">08.00 WIB - 12.00 WIB</p>
                             </div>
                         </div>
 
-                        <div className="bg-white p-8 rounded-2xl shadow-lg flex items-center gap-6">
-                            <div className="bg-[#802B44] w-14 h-14 rounded-full flex items-center justify-center text-white shrink-0">
+                        <div className="bg-black p-8 rounded-2xl shadow-2xl flex items-center gap-6 border border-zinc-900">
+                            <div className="bg-emerald-600 w-14 h-14 rounded-full flex items-center justify-center text-white shrink-0 shadow-lg shadow-emerald-500/20">
                                 <MapPin size={28} />
                             </div>
                             <div className="text-left">
-                                <p className="text-[#802B44] font-bold text-lg mb-1">Tempat</p>
-                                <p className="text-gray-700 text-xl font-extrabold">Aula Gedung C</p>
+                                <p className="text-emerald-400 font-bold text-sm font-mono uppercase tracking-wider">// Tempat</p>
+                                <p className="text-gray-200 text-xl font-extrabold mt-1">Aula Gedung C</p>
                             </div>
                         </div>
 
-                        <div className="bg-white p-8 rounded-2xl shadow-lg flex items-center gap-6">
-                            <div className="bg-[#802B44] w-14 h-14 rounded-full flex items-center justify-center text-white shrink-0">
+                        <div className="bg-black p-8 rounded-2xl shadow-2xl flex items-center gap-6 border border-zinc-900">
+                            <div className="bg-emerald-600 w-14 h-14 rounded-full flex items-center justify-center text-white shrink-0 shadow-lg shadow-emerald-500/20">
                                 <Building size={28} />
                             </div>
                             <div className="text-left">
-                                <p className="text-[#802B44] font-bold text-lg mb-1">Lokasi</p>
-                                <p className="text-gray-700 text-xl font-extrabold">Kampus 1 (Mataram) Universitas Harkat Negeri</p>
+                                <p className="text-emerald-400 font-bold text-sm font-mono uppercase tracking-wider">// Lokasi</p>
+                                <p className="text-gray-200 text-lg font-extrabold mt-1">Kampus 1 (Mataram) Universitas Harkat Negeri</p>
                             </div>
                         </div>
                     </div>
@@ -168,74 +165,40 @@ const Talkshow = () => {
             </section>
 
             {/* 5. FAQ SECTION */}
-            <section className="py-24 px-8 md:px-24 bg-white">
+            <section className="py-24 px-8 md:px-24 bg-black border-t border-zinc-900">
                 <ScrollReveal className="text-center mb-12">
-                    <p className="text-[#802B44] font-bold tracking-widest uppercase mb-2">FAQ</p>
-                    <h2 className="text-4xl font-extrabold text-gray-800">
-                        Punya Pertanyaan? Lihat <span className="text-[#802B44]">Disini</span>
+                    <p className="text-emerald-400 font-bold tracking-widest uppercase mb-2 font-mono text-sm">// FAQ</p>
+                    <h2 className="text-4xl font-extrabold text-gray-100 uppercase tracking-wider">
+                        Punya Pertanyaan? Lihat <span className="text-emerald-500">Disini</span>
                     </h2>
-                    <p className="text-gray-500 mt-4">Ada banyak informasi yang terkait dengan INVOFEST, Anda dapat melihat daftar pertanyaan di bawah ini.</p>
+                    <p className="text-gray-500 mt-4 max-w-xl mx-auto text-sm">Ada banyak informasi terkait EQUATOR_APT // SYSTEM_BREACH, Anda dapat melihat daftar pertanyaan di bawah ini.</p>
                 </ScrollReveal>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
                     <ScrollReveal delay={0}>
-                        <Collapse title="Apa itu INVOFEST?" description="INVOFEST adalah festival IT tahunan yang diselenggarakan oleh Program Studi Sarjana Terapan Teknik Informatika Universitas Harkat Negeri untuk mewadahi minat dan bakat mahasiswa di bidang teknologi." />
+                        <Collapse title="Apa itu EQUATOR_APT // SYSTEM_BREACH?" description="EQUATOR_APT // SYSTEM_BREACH adalah rangkaian red team & pentest yang mengutamakan ethics, scope yang jelas, dan pembelajaran yang dapat dipertanggungjawabkan." />
                     </ScrollReveal>
                     <ScrollReveal delay={100}>
-                        <Collapse title="Kapan dan dimana INVOFEST dilaksanakan?" description="Rangkaian acara INVOFEST 2025 akan dilaksanakan mulai bulan Oktober 2025 secara hybrid (online dan offline di Kampus UHN Tegal, Jawa Tengah)." />
+                        <Collapse title="Kapan dan dimana acara dilaksanakan?" description="Acara berlangsung secara hybrid (online/offline) sesuai jadwal dan venue yang diumumkan panitia." />
                     </ScrollReveal>
                     <ScrollReveal delay={200}>
-                        <Collapse title="Apakah ada biaya pendaftaran di INVOFEST?" description="Beberapa event seperti seminar dan talkshow gratis, namun untuk workshop dan competition dikenakan biaya pendaftaran sesuai dengan ketentuan masing-masing event." />
+                        <Collapse title="Apakah ada biaya pendaftaran?" description="Beberapa sesi dapat gratis, sementara sesi hands-on biasanya memiliki kuota dan skema biaya sesuai ketentuan masing-masing event." />
                     </ScrollReveal>
                     <ScrollReveal delay={300}>
-                        <Collapse title="Bagaimana saya mengetahui pemenang kompetisi?" description="Pengumuman pemenang kompetisi akan diinformasikan melalui website resmi INVOFEST dan media sosial Instagram setelah proses penjurian selesai." />
+                        <Collapse title="Bagaimana update peserta?" description="Update acara akan diumumkan melalui kanal resmi EQUATOR_APT // SYSTEM_BREACH dan media sosial panitia setelah sesi selesai." />
                     </ScrollReveal>
                     <ScrollReveal delay={400}>
-                        <Collapse title="Apa yang didapat pemenang dalam kompetisi?" description="Pemenang kompetisi akan mendapatkan hadiah uang tunai, sertifikat, trophy, kesempatan magang di perusahaan mitra, dan mentoring eksklusif dengan para pakar industri." />
+                        <Collapse title="Apa yang didapat peserta?" description="Peserta mendapatkan sertifikat/rekap partisipasi, materi referensi, dan kesempatan Q&A bersama mentor/speaker sesuai sesi." />
                     </ScrollReveal>
                     <ScrollReveal delay={500}>
-                        <Collapse title="Bagaimana cara mendaftar event?" description="Pendaftaran dapat dilakukan melalui website ini dengan membuat akun terlebih dahulu, lalu memilih event yang ingin diikuti dan mengisi formulir pendaftaran." />
+                        <Collapse title="Bagaimana cara mendaftar?" description="Pendaftaran dilakukan melalui website ini: buat akun, pilih sesi yang diikuti, lalu lengkapi formulir pendaftaran." />
                     </ScrollReveal>
                 </div>
             </section>
 
-            {/* 6. SPONSOR SECTION */}
-            <section className="py-20 border-t border-gray-100 bg-[#FFF0F3]">
-                <ScrollReveal className="text-center mb-12">
-                    <h2 className="text-3xl font-bold text-gray-800">Sponsor INVOFEST 2025</h2>
-                </ScrollReveal>
-                <Marquee direction="right">
-                    <div className="flex gap-16 items-center px-8">
-                        <img src="https://www.invofest-harkatnegeri.com/assets/sponsor/bahari_inn.jpg" alt="Bahari Inn" className="h-16 object-contain" />
-                        <img src="https://www.invofest-harkatnegeri.com/assets/sponsor/plaza_hotel_tegal.jpg" alt="Plaza Hotel Tegal" className="h-16 object-contain" />
-                        <img src="https://www.invofest-harkatnegeri.com/assets/sponsor/indo_print.jpg" alt="Indo Print" className="h-16 object-contain" />
-                        <img src="https://www.invofest-harkatnegeri.com/assets/sponsor/big_berry.png" alt="Big Berry" className="h-16 object-contain" />
-                        <img src="https://www.invofest-harkatnegeri.com/assets/sponsor/domainesia.png" alt="Domainesia" className="h-16 object-contain" />
-                        <img src="https://www.invofest-harkatnegeri.com/assets/sponsor/dicoding_official.png" alt="Dicoding" className="h-16 object-contain" />
-                    </div>
-                </Marquee>
-            </section>
-
-            {/* 7. MEDIA PARTNER SECTION */}
-            <section className="py-20 border-t border-gray-100 bg-white">
-                <ScrollReveal className="text-center mb-12">
-                    <h2 className="text-3xl font-bold text-gray-800">Media Partner INVOFEST 2025</h2>
-                </ScrollReveal>
-                <Marquee direction="left">
-                    <div className="flex gap-16 items-center px-8">
-                        <img src="https://www.invofest-harkatnegeri.com/assets/media_partner/Logo%20warga%20tech.png" alt="Warga Tech" className="h-16 object-contain" />
-                        <img src="https://www.invofest-harkatnegeri.com/assets/media_partner/LOGO%20HMP%20TEKNIK%20KOMPUTER%20.png" alt="HMP Teknik Komputer" className="h-16 object-contain" />
-                        <img src="https://www.invofest-harkatnegeri.com/assets/media_partner/permikomnas.png" alt="Permikomnas" className="h-16 object-contain" />
-                        <img src="https://www.invofest-harkatnegeri.com/assets/media_partner/LOGO%20HMP%20D3%20PERHOTELAN.png" alt="HMP D3 Perhotelan" className="h-16 object-contain" />
-                        <img src="https://www.invofest-harkatnegeri.com/assets/media_partner/HMPTI_ITB_STIKOM_BALI.png" alt="HMPTI ITB STIKOM Bali" className="h-16 object-contain" />
-                        <img src="https://www.invofest-harkatnegeri.com/assets/media_partner/logo%20hima%20elektro.png" alt="Hima Elektro" className="h-16 object-contain" />
-                        <img src="https://www.invofest-harkatnegeri.com/assets/media_partner/LOGO%20HMTIKA.png" alt="HMTIKA" className="h-16 object-contain" />
-                    </div>
-                </Marquee>
-            </section>
-
+            {/* BACK TO TOP BUTTON */}
             <button 
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                className="fixed bottom-8 right-8 bg-[#802B44] w-12 h-12 rounded-full text-white shadow-2xl flex items-center justify-center hover:scale-110 transition-transform"
+                className="fixed bottom-8 right-8 bg-emerald-600 w-12 h-12 rounded-full text-white shadow-2xl flex items-center justify-center hover:scale-110 transition-transform z-50 border border-emerald-500/20"
             >
                 ↑
             </button>
@@ -244,4 +207,3 @@ const Talkshow = () => {
 };
 
 export default Talkshow;
-

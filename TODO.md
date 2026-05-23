@@ -1,9 +1,15 @@
-# TODO: Fix EventCreate JSX Errors
+# TODO - EQUATOR_APT // SYSTEM_BREACH Red Team Re-theme
 
-## Steps:
-- [x] Step 1: Edit eventcreate.tsx to fix unclosed tags, remove malformed custom components (SelectInput etc.), keep native form elements, add proper submit button, remove extras.
-- [x] Step 2: Created fixed version eventcreate-fixed.tsx, verified syntax.
-- [ ] Step 3: Test form functionality in dev server.
-- [ ] Step 4: Complete task.
-Replace eventcreate.tsx with eventcreate-fixed.tsx to fix.
+## Plan steps
+- [ ] Update shared branding in Header/Footer (text + logo alt + footer copy).
+- [ ] Re-theme public pages with same layout/sections but new cybersecurity/red team content:
+  - [ ] `src/pages/Beranda.tsx`
+  - [ ] `src/pages/Seminar.tsx`
+  - [ ] `src/pages/talkshow.tsx`
+  - [ ] `src/pages/Workshop.tsx`
+  - [ ] `src/pages/Competition.tsx`
+- [ ] Replace WhatsApp CTA message text across those pages to match new brand.
+- [ ] Replace sponsor/media image assets and URLs (provide new links/paths if required).
+- [ ] Update FAQ questions/answers to new program name.
+- [ ] Build/test frontend to ensure no TS/compile/runtime errors.
 

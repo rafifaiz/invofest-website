@@ -1,197 +1,190 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import api from "../../../services/api";
 
-const schema = z.object({
-  title: z.string().min(1, "Judul wajib diisi"),
-  date: z.string().min(1, "Tanggal wajib dipilih"),
-  categoryId: z.string().min(1, "Kategori wajib dipilih"),
-  location: z.string().min(1, "Lokasi wajib diisi"),
+const eventCreateSchema = z.object({
+  nama: z.string().min(1, "Judul event wajib diisi"),
+  lokasi: z.string().min(1, "Lokasi wajib diisi"),
+  date_event: z.string().min(1, "Tanggal wajib dipilih"),
+  category_id: z.coerce.number().int().min(1, "Kategori wajib dipilih"),
+  pembicara_id: z.coerce.number().int().min(1, "Pembicara wajib dipilih"),
   description: z.string().optional(),
-  maxParticipants: z.number().min(1, "Min 1 peserta")
-}).refine((data) => !isNaN(Number(data.maxParticipants)), {
-  message: "Kuota harus angka yang valid",
-  path: ["maxParticipants"]
 });
 
-type FormData = z.infer<typeof schema>;
+type EventCreateFormData = z.infer<typeof eventCreateSchema>;
+
+type Category = { id: number; nama: string };
+// backend speaker model: Pembicara { id, nama, jabatan, sosialMedia }
+// tapi di frontend beberapa file menamai `name`/`role`. Untuk aman, pakai union.
+type Speaker = {
+  id: number;
+  nama?: string;
+  name?: string;
+  jabatan?: string;
+  role?: string;
+};
 
 export default function EventCreate() {
+  const navigate = useNavigate();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState("");
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [speakers, setSpeakers] = useState<Speaker[]>([]);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    reset
-  } = useForm<FormData>({
-    resolver: zodResolver(schema)
+  } = useForm<EventCreateFormData>({
+    resolver: zodResolver(eventCreateSchema) as any,
+    defaultValues: {
+      nama: "",
+      lokasi: "",
+      date_event: "",
+      category_id: 0,
+      pembicara_id: 0,
+      description: "",
+    } as any,
   });
 
-  const onFormSubmit = (data: FormData) => {
-    setIsSubmitting(true);
-    setSubmitError("");
+  useEffect(() => {
+    const run = async () => {
+      try {
+        const [catRes, spRes] = await Promise.all([
+          api.get("/categories"),
+          api.get("/pembicara"),
+        ]);
+        setCategories(catRes.data);
+        setSpeakers(spRes.data);
 
-    setTimeout(() => {
-      console.log("Event data:", data);
-      alert("✅ Event berhasil disimpan!");
-      reset();
+      } catch (e) {
+        console.error("Gagal memuat dropdown event", e);
+      }
+    };
+    run();
+  }, []);
+
+  const onSubmit = async (data: EventCreateFormData) => {
+    setIsSubmitting(true);
+    try {
+      // backend expects: { nama, tanggal, lokasi, description?, categoryId, pembicaraId }
+      await api.post("/events", {
+        nama: data.nama,
+        tanggal: data.date_event,
+        lokasi: data.lokasi,
+        description: data.description,
+        categoryId: data.category_id,
+        pembicaraId: data.pembicara_id,
+      });
+
+      alert(" Event berhasil di-deploy ke sistem.");
+      navigate("/dashboard/event");
+    } catch (error) {
+      console.error(error);
+      alert(" Gagal menyimpan data ke database.");
+    } finally {
       setIsSubmitting(false);
-    }, 1500);
+    }
   };
 
   return (
-    <div className="p-8 max-w-2xl mx-auto">
-      <div className="text-center mb-12">
-        <div className="w-20 h-2 bg-gradient-to-r from-red-500 to-red-600 rounded-full mx-auto mb-6" />
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-gray-900 to-slate-700 bg-clip-text text-transparent mb-4">
-          Tambah Event Baru
+    <div className="min-h-screen bg-black p-8 max-w-2xl mx-auto text-gray-300">
+      <div className="text-center mb-10">
+        <h1 className="text-3xl font-black text-emerald-500 uppercase tracking-widest font-mono">
+          DEPLOY_NEW_EVENT
         </h1>
-        <p className="text-xl text-gray-600">Kelola event Invofest dengan mudah</p>
       </div>
 
-      <div className="bg-white/80 backdrop-blur-xl shadow-2xl rounded-3xl p-8 border border-white/50">
-        <form onSubmit={handleSubmit(onFormSubmit as any)} className="space-y-6">
-          
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Judul Event *
-            </label>
+      <div className="bg-zinc-950 rounded-2xl p-8 border border-zinc-900 shadow-2xl">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          <div className="flex flex-col gap-1.5">
+            <label className="text-gray-400 text-xs font-mono">// EVENT_TITLE</label>
             <input
-              {...register("title")}
-              placeholder="Seminar AI 2024"
-              className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
-                errors.title ? 'border-red-500 bg-red-50 shadow-red-100' : 'border-gray-200 hover:border-gray-300'
-              }`}
+              {...register("nama")}
+              className="w-full px-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-gray-100"
             />
-            {errors.title && (
-              <p className="mt-1 text-sm text-red-600">{errors.title?.message}</p>
+            {errors.nama && (
+              <p className="text-red-500 text-xs">! {errors.nama.message}</p>
             )}
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Tanggal Pelaksanaan *
-            </label>
+          <div className="flex flex-col gap-1.5">
+            <label className="text-gray-400 text-xs font-mono">// OPERATIONAL_DATE</label>
             <input
               type="date"
-              {...register("date")}
-              className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
-                errors.date ? 'border-red-500 bg-red-50 shadow-red-100' : 'border-gray-200 hover:border-gray-300'
-              }`}
+              {...register("date_event")}
+              className="w-full px-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-gray-100"
             />
-            {errors.date && (
-              <p className="mt-1 text-sm text-red-600">{errors.date?.message}</p>
+            {errors.date_event && (
+              <p className="text-red-500 text-xs">! {errors.date_event.message}</p>
             )}
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Kategori *
-            </label>
+          <div className="flex flex-col gap-1.5">
+            <label className="text-gray-400 text-xs font-mono">// CATEGORY</label>
             <select
-              {...register("categoryId")}
-              className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
-                errors.categoryId ? 'border-red-500 bg-red-50 shadow-red-100' : 'border-gray-200 hover:border-gray-300'
-              }`}
+              {...register("category_id")}
+              className="w-full px-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-gray-100"
             >
-              <option value="">Pilih kategori</option>
-              <option value="seminar">Seminar</option>
-              <option value="workshop">Workshop</option>
-              <option value="talkshow">Talkshow</option>
-              <option value="competition">Competition</option>
+              <option value={0}>Pilih kategori</option>
+              {categories.map((c) => (
+                <option key={c.id} value={c.id}>
+                  {c.nama}
+                </option>
+              ))}
             </select>
-            {errors.categoryId && (
-              <p className="mt-1 text-sm text-red-600">{errors.categoryId?.message}</p>
+            {errors.category_id && (
+              <p className="text-red-500 text-xs">! {errors.category_id.message}</p>
             )}
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Lokasi *
-            </label>
+          <div className="flex flex-col gap-1.5">
+            <label className="text-gray-400 text-xs font-mono">// PEMBICARA</label>
+            <select
+              {...register("pembicara_id")}
+              className="w-full px-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-gray-100"
+            >
+              <option value={0}>Pilih pembicara</option>
+              {speakers.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.nama ?? s.name ?? `Speaker #${s.id}`}
+                </option>
+              ))}
+            </select>
+            {errors.pembicara_id && (
+              <p className="text-red-500 text-xs">! {errors.pembicara_id.message}</p>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label className="text-gray-400 text-xs font-mono">// LOCATION</label>
             <input
-              {...register("location")}
-              placeholder="Aula Gedung Serbaguna"
-              className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
-                errors.location ? 'border-red-500 bg-red-50 shadow-red-100' : 'border-gray-200 hover:border-gray-300'
-              }`}
+              {...register("lokasi")}
+              className="w-full px-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-gray-100"
             />
-            {errors.location && (
-              <p className="mt-1 text-sm text-red-600">{errors.location?.message}</p>
+            {errors.lokasi && (
+              <p className="text-red-500 text-xs">! {errors.lokasi.message}</p>
             )}
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Kuota Peserta *
-            </label>
+          <div className="flex flex-col gap-1.5">
+            <label className="text-gray-400 text-xs font-mono">// DESCRIPTION</label>
             <input
-              type="number"
-              {...register("maxParticipants")}
-              placeholder="100"
-              className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all ${
-                errors.maxParticipants ? 'border-red-500 bg-red-50 shadow-red-100' : 'border-gray-200 hover:border-gray-300'
-              }`}
-            />
-            {errors.maxParticipants && (
-              <p className="mt-1 text-sm text-red-600">{errors.maxParticipants?.message}</p>
-            )}
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Deskripsi
-            </label>
-            <textarea
               {...register("description")}
-              rows={4}
-              placeholder="Detail tentang event..."
-              className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all resize-vertical ${
-                errors.description ? 'border-red-500 bg-red-50 shadow-red-100' : 'border-gray-200 hover:border-gray-300'
-              }`}
+              className="w-full px-4 py-2.5 bg-zinc-900 border border-zinc-800 rounded-lg text-sm text-gray-100"
             />
-            {errors.description && (
-              <p className="mt-1 text-sm text-red-600">{errors.description?.message}</p>
-            )}
           </div>
 
-          {submitError && (
-            <div className="p-4 bg-red-50 border border-red-200 rounded-2xl">
-              <p className="text-red-800 font-medium">{submitError}</p>
-            </div>
-          )}
-
-          <div className="flex flex-col sm:flex-row gap-4 pt-8">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={`flex-1 py-4 px-8 font-semibold rounded-xl shadow-lg transition-all duration-200 flex items-center justify-center gap-3 ${
-                isSubmitting
-                  ? 'bg-gray-400 cursor-not-allowed opacity-50'
-                  : 'bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white hover:shadow-xl hover:-translate-y-1 active:translate-y-0'
-              }`}
-            >
-              {isSubmitting ? (
-                <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                </svg>
-              ) : (
-                'Simpan Event'
-              )}
-            </button>
-            <button
-              type="button"
-              onClick={() => reset()}
-              disabled={isSubmitting}
-              className="flex-1 py-4 px-8 font-semibold border-2 border-gray-300 rounded-xl hover:border-gray-400 hover:bg-gray-50 text-gray-700 transition-all duration-200"
-            >
-              Reset Form
-            </button>
-          </div>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg transition-all"
+          >
+            {isSubmitting ? "INJECTING..." : "Inject Event"}
+          </button>
         </form>
       </div>
     </div>

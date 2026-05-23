@@ -8,174 +8,183 @@ const stats = [
     value: '12',
     change: '+3',
     icon: CalendarDays,
-    color: 'from-blue-500 to-blue-600'
+    color: 'text-emerald-400'
   },
   {
     name: 'Total Peserta',
     value: '1,247',
     change: '+18%',
     icon: Users,
-    color: 'from-emerald-500 to-emerald-600'
+    color: 'text-emerald-400'
   },
   {
     name: 'Kategori Aktif',
     value: '4',
     change: 'steady',
     icon: Tag,
-    color: 'from-purple-500 to-purple-600'
+    color: 'text-emerald-400'
   },
   {
     name: 'Pembicara',
     value: '8',
     change: '+2',
     icon: Users2,
-    color: 'from-orange-500 to-orange-600'
+    color: 'text-emerald-400'
   }
 ];
 
 export default function DashboardIndex() {
-  const Icon = ({ iconName, color }: { iconName: any; color: string }) => {
-    const Component = iconName;
-    return <Component className={`w-8 h-8 ${color.replace('from-', 'text-').replace('to-', '')}`} />;
-  };
-
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-8 bg-red-50">
-      {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+    <div className="p-8 max-w-7xl mx-auto space-y-8 bg-black text-gray-300 min-h-screen">
+      
+      {/* Header - Cyber Emerald Green */}
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-zinc-900 pb-6">
         <div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-red-900 to-red-700 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-black bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent uppercase tracking-wider font-mono">
             Dashboard Admin
           </h1>
-          <p className="text-xl text-red-900 mt-2">Monitoring lengkap Invofest 2025</p>
+          <p className="text-xl text-emerald-500/80 mt-2 font-mono text-sm tracking-wide">
+            // Monitoring lengkap Equator APT 2026
+          </p>
         </div>
         <div className="flex gap-3">
           <Link
             to="/dashboard/event/create"
-            className="px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center gap-2"
+            className="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold font-mono text-xs uppercase tracking-wider rounded-xl shadow-lg shadow-emerald-900/20 transition-all flex items-center gap-2"
           >
-            <CalendarDays size={18} />
+            <CalendarDays size={16} />
             Event Baru
           </Link>
         </div>
       </div>
 
-      {/* Stats Grid */}
+      {/* Stats Grid - Dark Cyber Box */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, index) => (
-          <div key={index} className="bg-red-100/70 backdrop-blur-xl rounded-2xl p-6 border border-red-200/50 shadow-lg hover:shadow-2xl transition-all duration-300 group">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-red-900 uppercase tracking-wide">{stat.name}</p>
-                <p className="text-3xl font-bold text-red-900 mt-1">{stat.value}</p>
+        {stats.map((stat, index) => {
+          const IconComponent = stat.icon;
+          return (
+            <div key={index} className="bg-zinc-950 rounded-2xl p-6 border border-zinc-900 shadow-xl transition-all duration-300 group hover:border-emerald-900/50">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-gray-500 uppercase tracking-wider font-mono">{stat.name}</p>
+                  <p className="text-3xl font-black text-gray-100 mt-1 font-mono">{stat.value}</p>
+                </div>
+                <div className="p-3 rounded-xl bg-zinc-900 border border-zinc-800 group-hover:bg-emerald-950/30 group-hover:border-emerald-800 transition-colors">
+                  <IconComponent className={`w-6 h-6 ${stat.color}`} />
+                </div>
               </div>
-              <div className={`p-3 rounded-xl bg-gradient-to-r from-red-600 to-red-700 shadow-lg group-hover:scale-110 transition-transform`}>
-                <Icon iconName={stat.icon} color={stat.color} />
+              <div className="flex items-center mt-4 font-mono text-xs">
+                <span className="font-bold text-emerald-400">{stat.change}</span>
+                <span className="ml-1.5 text-gray-600">
+                  {stat.change === 'steady' ? 'stabil' : stat.change.includes('%') ? 'dari bulan lalu' : 'baru ditambahkan'}
+                </span>
               </div>
             </div>
-            <div className="flex items-center mt-4">
-              <span className="text-sm font-semibold text-red-700">{stat.change}</span>
-              <span className="ml-1 text-xs text-red-700/70">{stat.change === 'steady' ? 'stabil' : stat.change.includes('%') ? 'dari bulan lalu' : 'baru ditambahkan'}</span>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Recent Activity & Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Recent Activity */}
-        <div className="bg-red-100/70 backdrop-blur-xl rounded-2xl p-6 border border-red-200/50 shadow-lg">
-          <h2 className="text-xl font-bold text-red-900 mb-6 flex items-center gap-2">
-            <Activity size={20} />
-            Aktivitas Terbaru
+        
+        {/* Log Aktivitas Sistem (Full Cyber Text) */}
+        <div className="bg-zinc-950 rounded-2xl p-6 border border-zinc-900 shadow-xl">
+          <h2 className="text-md font-bold text-gray-200 uppercase tracking-wider font-mono mb-6 flex items-center gap-2 border-b border-zinc-900 pb-3">
+            <Activity size={18} className="text-emerald-400" />
+            Log Aktivitas Sistem
           </h2>
           <div className="space-y-4">
-            <div className="flex items-center gap-4 p-4 bg-red-50 rounded-xl hover:bg-red-100 transition-colors">
-              <div className="w-10 h-10 bg-red-200 rounded-xl flex items-center justify-center">
-                <Users size={16} className="text-red-800" />
+            
+            <div className="flex items-center gap-4 p-4 bg-zinc-900/50 rounded-xl border border-zinc-900/50">
+              <div className="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center border border-zinc-800">
+                <Users size={16} className="text-emerald-400" />
               </div>
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-red-900 truncate">10 peserta baru Workshop UI/UX</p>
-                <p className="text-sm text-red-800/70">2 jam yang lalu</p>
+              <div className="flex-1 min-w-0 font-mono">
+                <p className="text-sm font-semibold text-gray-300 truncate">10 peserta baru terdaftar Web Pentesting</p>
+                <p className="text-xs text-gray-600 mt-0.5">2 jam yang lalu</p>
               </div>
-              <span className="text-red-800 font-medium">+10</span>
+              <span className="text-emerald-400 font-bold font-mono text-sm">+10</span>
             </div>
-            <div className="flex items-center gap-4 p-4 bg-red-50 rounded-xl hover:bg-red-100 transition-colors">
-              <div className="w-10 h-10 bg-red-200 rounded-xl flex items-center justify-center">
-                <CalendarDays size={16} className="text-red-800" />
+            
+            <div className="flex items-center gap-4 p-4 bg-zinc-900/50 rounded-xl border border-zinc-900/50">
+              <div className="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center border border-zinc-800">
+                <CalendarDays size={16} className="text-emerald-400" />
               </div>
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-red-900 truncate">Event Seminar AI dikonfirmasi</p>
-                <p className="text-sm text-red-800/70">1 hari yang lalu</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4 p-4 bg-red-50 rounded-xl hover:bg-red-100 transition-colors">
-              <div className="w-10 h-10 bg-red-200 rounded-xl flex items-center justify-center">
-                <Users2 size={16} className="text-red-800" />
-              </div>
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold text-red-900 truncate">Pembicara baru ditambahkan</p>
-                <p className="text-sm text-red-800/70">3 hari yang lalu</p>
+              <div className="flex-1 min-w-0 font-mono">
+                <p className="text-sm font-semibold text-gray-300 truncate">Event CTF Competition berhasil diverifikasi</p>
+                <p className="text-xs text-gray-600 mt-0.5">1 hari yang lalu</p>
               </div>
             </div>
+
+            <div className="flex items-center gap-4 p-4 bg-zinc-900/50 rounded-xl border border-zinc-900/50">
+              <div className="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center border border-zinc-800">
+                <Users2 size={16} className="text-emerald-400" />
+              </div>
+              <div className="flex-1 min-w-0 font-mono">
+                <p className="text-sm font-semibold text-gray-300 truncate">Pembicara [OSINT Expert] ditambahkan</p>
+                <p className="text-xs text-gray-600 mt-0.5">3 hari yang lalu</p>
+              </div>
+            </div>
+            
           </div>
         </div>
 
-        {/* Charts/Quick Stats */}
+        {/* Statistik Event & Progress Trend */}
         <div className="space-y-6">
-          <div className="bg-red-100/70 backdrop-blur-xl rounded-2xl p-6 border border-red-200/50 shadow-lg">
-            <h2 className="text-xl font-bold text-red-900 mb-6 flex items-center gap-2">
-              <BarChart3 size={20} />
+          <div className="bg-zinc-950 rounded-2xl p-6 border border-zinc-900 shadow-xl">
+            <h2 className="text-md font-bold text-gray-200 uppercase tracking-wider font-mono mb-6 flex items-center gap-2 border-b border-zinc-900 pb-3">
+              <BarChart3 size={18} className="text-emerald-400" />
               Statistik Event
             </h2>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center p-4 bg-gradient-to-r from-red-100 to-red-200 rounded-xl">
-                <span className="font-semibold text-red-900">Pendaftaran Hari Ini</span>
-                <span className="text-2xl font-bold text-red-800">47</span>
+            <div className="space-y-4 font-mono">
+              <div className="flex justify-between items-center p-4 bg-zinc-900/30 border border-zinc-900 rounded-xl">
+                <span className="text-sm text-gray-400">Pendaftaran Hari Ini</span>
+                <span className="text-xl font-black text-emerald-400">47</span>
               </div>
-              <div className="flex justify-between items-center p-4 bg-gradient-to-r from-red-100 to-red-200 rounded-xl">
-                <span className="font-semibold text-red-900">Konversi</span>
-                <span className="text-2xl font-bold text-red-800">82%</span>
+              <div className="flex justify-between items-center p-4 bg-zinc-900/30 border border-zinc-900 rounded-xl">
+                <span className="text-sm text-gray-400">Konversi</span>
+                <span className="text-xl font-black text-emerald-400">82%</span>
               </div>
-              <div className="flex justify-between items-center p-4 bg-gradient-to-r from-red-100 to-red-200 rounded-xl">
-                <span className="font-semibold text-red-900">Revenue</span>
-                <span className="text-2xl font-bold text-red-800">Rp 12.5M</span>
+              <div className="flex justify-between items-center p-4 bg-zinc-900/30 border border-zinc-900 rounded-xl">
+                <span className="text-sm text-gray-400">Revenue</span>
+                <span className="text-xl font-black text-emerald-400">Rp 12.5M</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-red-100/70 backdrop-blur-xl rounded-2xl p-6 border border-red-200/50 shadow-lg">
-            <h2 className="text-xl font-bold text-red-900 mb-6 flex items-center gap-2">
-              <TrendingUp size={20} />
+          {/* Trend Tracker */}
+          <div className="bg-zinc-950 rounded-2xl p-6 border border-zinc-900 shadow-xl">
+            <h2 className="text-md font-bold text-gray-200 uppercase tracking-wider font-mono mb-6 flex items-center gap-2 border-b border-zinc-900 pb-3">
+              <TrendingUp size={18} className="text-emerald-400" />
               Trend Bulan Ini
             </h2>
-            <div className="space-y-3">
-              <div className="flex justify-between text-sm">
-                <span className="text-red-900">Seminar</span>
-                <div className="w-24 bg-red-200 rounded-full h-2">
-                  <div className="bg-red-700 h-2 rounded-full" style={{ width: '75%' }} />
+            <div className="space-y-4 font-mono text-xs">
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-gray-400 w-20">Seminar</span>
+                <div className="flex-1 bg-zinc-900 border border-zinc-800 rounded-full h-2.5 overflow-hidden">
+                  <div className="bg-emerald-500 h-full rounded-full" style={{ width: '75%' }} />
                 </div>
-                <span className="text-red-900">75%</span>
+                <span className="text-emerald-400 font-bold w-8 text-right">75%</span>
               </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-red-900">Workshop</span>
-                <div className="w-24 bg-red-200 rounded-full h-2">
-                  <div className="bg-red-700 h-2 rounded-full" style={{ width: '60%' }} />
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-gray-400 w-20">Workshop</span>
+                <div className="flex-1 bg-zinc-900 border border-zinc-800 rounded-full h-2.5 overflow-hidden">
+                  <div className="bg-emerald-500 h-full rounded-full" style={{ width: '60%' }} />
                 </div>
-                <span className="text-red-900">60%</span>
+                <span className="text-emerald-400 font-bold w-8 text-right">60%</span>
               </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-red-900">Competition</span>
-                <div className="w-24 bg-red-200 rounded-full h-2">
-                  <div className="bg-red-700 h-2 rounded-full" style={{ width: '45%' }} />
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-gray-400 w-20">Competition</span>
+                <div className="flex-1 bg-zinc-900 border border-zinc-800 rounded-full h-2.5 overflow-hidden">
+                  <div className="bg-emerald-500 h-full rounded-full" style={{ width: '45%' }} />
                 </div>
-                <span className="text-red-900">45%</span>
+                <span className="text-emerald-400 font-bold w-8 text-right">45%</span>
               </div>
             </div>
           </div>
+          
         </div>
       </div>
     </div>
   );
 }
-

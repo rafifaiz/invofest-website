@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root{
+  --eq-bg: #000000;
+  --eq-fg: #ffffff;
+  --eq-accent: #16a34a; /* green */
+}
+
+html, body { background: var(--eq-bg); color: var(--eq-fg); }
+
+a { color: inherit; }
+
+/* smooth green hover for main nav sections */
+.hover\:text-green-300:hover { color: #86efac; }
+

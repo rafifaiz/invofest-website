@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { Link } from "react-router-dom";
 
 interface RegisterFormData {
   fullName: string;
@@ -19,89 +20,100 @@ const registerSchema = z.object({
   bio: z.string().min(10, "Bio minimal 10 karakter").max(200, "Bio maksimal 200 karakter")
 });
 
-// Input Component
+// Cyber Input Component
 const Input = ({ label, name, register, error, type = "text", placeholder }: any) => (
-  <div className="flex flex-col gap-1">
-    <label className="font-medium text-gray-700 text-sm">{label}</label>
+  <div className="flex flex-col gap-1.5 font-mono">
+    <label className="text-gray-400 text-xs tracking-wider">{label}</label>
     <input
       type={type}
       placeholder={placeholder}
       {...register(name)}
-      className={`border rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-red-700 ${error ? 'border-red-500 bg-red-50' : 'border-gray-200 bg-gray-50'}`}
+      className={`w-full px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-zinc-900 text-gray-100 transition-all text-sm placeholder-zinc-600 ${
+        error ? 'border-red-600 focus:ring-red-600' : 'border-zinc-800 focus:border-emerald-500'
+      }`}
     />
-    {error && <p className="text-red-600 text-xs mt-1">{error}</p>}
+    {error && <p className="text-red-500 text-xs mt-1">! {error}</p>}
   </div>
 );
 
-// PasswordInput Component
+// Cyber PasswordInput Component
 const PasswordInput = ({ label, name, register, error }: any) => {
   const [show, setShow] = useState(false);
   return (
-    <div className="flex flex-col gap-1">
-      <label className="font-medium text-gray-700 text-sm">{label}</label>
+    <div className="flex flex-col gap-1.5 font-mono">
+      <label className="text-gray-400 text-xs tracking-wider">{label}</label>
       <div className="relative">
         <input
           type={show ? "text" : "password"}
+          placeholder="••••••••"
           {...register(name)}
-          className={`border rounded-lg px-4 py-2 w-full pr-24 focus:outline-none focus:ring-2 focus:ring-red-700 ${error ? 'border-red-500 bg-red-50' : 'border-gray-200 bg-gray-50'}`}
+          className={`w-full px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-zinc-900 text-gray-100 transition-all text-sm pr-20 placeholder-zinc-600 ${
+            error ? 'border-red-600 focus:ring-red-600' : 'border-zinc-800 focus:border-emerald-500'
+          }`}
         />
         <button
           type="button"
           onClick={() => setShow(!show)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-red-700 font-medium"
+          className="absolute right-4 top-1/2 -translate-y-1/2 text-xs text-emerald-400 font-bold hover:text-emerald-300 uppercase tracking-wider"
         >
-          {show ? "Sembunyikan" : "Lihat"}
+          {show ? "Hide" : "View"}
         </button>
       </div>
-      {error && <p className="text-red-600 text-xs mt-1">{error}</p>}
+      {error && <p className="text-red-500 text-xs mt-1">! {error}</p>}
     </div>
   );
 };
 
-// Select Component
+// Cyber Select Component
 const Select = ({ label, name, register, error, options }: any) => (
-  <div className="flex flex-col gap-1">
-    <label className="font-medium text-gray-700 text-sm">{label}</label>
+  <div className="flex flex-col gap-1.5 font-mono">
+    <label className="text-gray-400 text-xs tracking-wider">{label}</label>
     <select
       {...register(name)}
-      className={`border rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-red-700 ${error ? 'border-red-500 bg-red-50' : 'border-gray-200 bg-gray-50'}`}
+      className={`w-full px-4 py-2.5 border rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-zinc-900 text-gray-100 transition-all text-sm ${
+        error ? 'border-red-600 focus:ring-red-600' : 'border-zinc-800 focus:border-emerald-500'
+      }`}
     >
-      <option value="">Pilih Kategori Event</option>
+      <option value="" className="text-zinc-600">-- SELECT_OPERATIONAL_NODE --</option>
       {options.map((opt: any) => (
-        <option key={opt.value} value={opt.value}>{opt.label}</option>
+        <option key={opt.value} value={opt.value} className="bg-zinc-950 text-gray-200">
+          {opt.label}
+        </option>
       ))}
     </select>
-    {error && <p className="text-red-600 text-xs mt-1">{error}</p>}
+    {error && <p className="text-red-500 text-xs mt-1">! {error}</p>}
   </div>
 );
 
-// Textarea Component
+// Cyber Textarea Component
 const Textarea = ({ label, name, register, error, placeholder }: any) => (
-  <div className="flex flex-col gap-1">
-    <label className="font-medium text-gray-700 text-sm">{label}</label>
+  <div className="flex flex-col gap-1.5 font-mono">
+    <label className="text-gray-400 text-xs tracking-wider">{label}</label>
     <textarea
       {...register(name)}
       placeholder={placeholder}
-      className={`border rounded-lg px-4 py-2 min-h-[100px] w-full focus:outline-none focus:ring-2 focus:ring-red-700 ${error ? 'border-red-500 bg-red-50' : 'border-gray-200 bg-gray-50'}`}
+      className={`w-full px-4 py-2.5 border rounded-lg min-h-[90px] focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-zinc-900 text-gray-100 transition-all text-sm resize-none placeholder-zinc-600 ${
+        error ? 'border-red-600 focus:ring-red-600' : 'border-zinc-800 focus:border-emerald-500'
+      }`}
     />
-    {error && <p className="text-red-600 text-xs mt-1">{error}</p>}
+    {error && <p className="text-red-500 text-xs mt-1">! {error}</p>}
   </div>
 );
 
-// Button Component
+// Cyber Button Component
 const Button = ({ label, type = "button", variant = "primary", isLoading = false, onClick }: any) => {
   const variants = {
-    primary: "bg-gradient-to-r from-red-800 to-red-700 text-white hover:from-red-900 hover:to-red-800 disabled:from-red-300",
-    outline: "border-2 border-red-700 text-red-700 hover:bg-red-50 disabled:opacity-50"
+    primary: "bg-red-800 hover:bg-red-900 text-white border border-transparent shadow-lg shadow-red-950/40 active:scale-[0.99]",
+    outline: "border border-zinc-800 text-gray-400 hover:bg-zinc-900 hover:text-gray-200"
   };
   return (
     <button
       type={type}
       disabled={isLoading}
       onClick={onClick}
-      className={`px-6 py-2.5 rounded-lg font-semibold transition-all duration-200 ${variants[variant as keyof typeof variants]} ${isLoading ? "cursor-not-allowed" : ""}`}
+      className={`w-full py-2.5 rounded-lg font-bold font-mono text-xs uppercase tracking-wider transition-all duration-200 flex items-center justify-center ${variants[variant as keyof typeof variants]} ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
     >
-      {isLoading ? "⏳ Memproses..." : label}
+      {isLoading ? "⏳ INITIALIZING..." : label}
     </button>
   );
 };
@@ -120,35 +132,41 @@ export const Register = () => {
 
   const onSubmit = async (data: RegisterFormData) => {
     setIsLoading(true);
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    console.log("📝 Data Registrasi:", data);
-    alert("✅ Registrasi berhasil! Selamat datang di Invofest!");
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    console.log("📝 Cyber Account Formed:", data);
+    alert("✅ Registrasi entitas berhasil terintegrasi dengan jaringan Equator APT!");
     setIsLoading(false);
     reset();
   };
 
   const eventOptions = [
-    { label: "🎤 Invofest 2024 - Main Event", value: "invofest" },
-    { label: "🤖 Workshop AI & Machine Learning", value: "ai" },
-    { label: "💻 React Conference Indonesia", value: "react" },
-    { label: "🚀 Startup Weekend Invofest", value: "startup" }
+    { label: "SEC_SEMINAR // Main Cyber Security Event", value: "invofest" },
+    { label: "WORKSHOP_AI // Machine Learning Operations", value: "ai" },
+    { label: "REACT_CONF // Frontend Architecture Core", value: "react" },
+    { label: "CTF_COMP // Attack & Defense Tournament", value: "startup" }
   ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 via-rose-50 to-red-50 py-10 px-4">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="inline-block w-20 h-2 bg-[#802B44] rounded-full mb-4"></div>
-          <h1 className="text-3xl font-bold text-[#802B44]">
-            Selamat Datang!
+    <div className="min-h-screen flex items-center justify-center bg-black py-12 px-4 select-none">
+      <div className="w-full max-w-md space-y-6">
+        
+        {/* Header - Matches Login Screen Layout */}
+        <div className="text-center">
+          <div className="inline-block w-20 h-1 bg-emerald-500 rounded-full mb-4 shadow-md shadow-emerald-500/50"></div>
+          <h1 className="text-3xl font-black bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent uppercase tracking-widest font-mono">
+            EQUATOR_APT //
           </h1>
-          <p className="text-gray-500 mt-2">Silakan daftar untuk acara Invofest</p>
+          <p className="text-gray-500 font-mono text-[10px] tracking-widest uppercase mt-1">
+            Create_New_System_Identity
+          </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+        {/* Tactical Dark Form Card */}
+        <div className="bg-zinc-950 rounded-2xl p-8 border border-zinc-900 shadow-2xl">
+          <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            
             <Input
-              label="Nama Lengkap"
+              label="// IDENTITY_FULL_NAME"
               name="fullName"
               register={register}
               error={errors.fullName?.message}
@@ -156,23 +174,23 @@ export const Register = () => {
             />
 
             <Input
-              label="Email"
+              label="// SECURE_EMAIL_ADDRESS"
               name="email"
               register={register}
               error={errors.email?.message}
               type="email"
-              placeholder="email@anda.com"
+              placeholder="ops@domain.com"
             />
 
             <PasswordInput
-              label="Password"
+              label="// ACCESS_PASSWORD"
               name="password"
               register={register}
               error={errors.password?.message}
             />
 
             <Select
-              label="Kategori Event"
+              label="// TARGET_EVENT_NODE"
               name="eventCategory"
               register={register}
               error={errors.eventCategory?.message}
@@ -180,23 +198,24 @@ export const Register = () => {
             />
 
             <Textarea
-              label="Bio Singkat"
+              label="// BIOGRAPHICAL_SUMMARY"
               name="bio"
               register={register}
               error={errors.bio?.message}
-              placeholder="Ceritakan sedikit tentang Anda..."
+              placeholder="Ceritakan sedikit keahlian atau latar belakang Anda..."
             />
 
-            <div className="flex gap-3 mt-4">
+            {/* Actions Block */}
+            <div className="flex gap-3 pt-4 border-t border-zinc-900/50">
               <Button 
                 type="submit" 
-                label="Daftar Sekarang" 
+                label="Request Access" 
                 variant="primary"
                 isLoading={isLoading}
               />
               <Button 
                 type="button" 
-                label="Reset" 
+                label="Clear" 
                 variant="outline"
                 onClick={() => reset()}
               />
@@ -204,9 +223,16 @@ export const Register = () => {
           </form>
         </div>
 
-        <div className="text-center mt-6 text-xs text-gray-400">
-          <p>© 2026 Invofest - All rights reserved by Mister_L</p>
+        {/* Footer Navigation Link */}
+        <div className="text-center font-mono text-xs text-zinc-500">
+          <p>
+            Already Registered?{" "}
+            <Link to="/login" className="text-emerald-400 font-bold hover:underline tracking-wide">
+              Login_Here
+            </Link>
+          </p>
         </div>
+
       </div>
     </div>
   );

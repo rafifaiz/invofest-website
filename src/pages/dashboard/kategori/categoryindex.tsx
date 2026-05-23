@@ -1,84 +1,89 @@
-import React from "react";
+import React, { useState, useEffect } from "react"; // Tambahkan useEffect di sini
 import { Link } from "react-router-dom";
-import { Tag, Plus } from "lucide-react";
+import { Plus, Terminal, ShieldAlert, Layers, Edit3, Trash2 } from "lucide-react";
+import api from "../../../services/api"; // Path ini harus benar mengarah ke src/services/api.ts
 
 export default function CategoryIndex() {
-  const categories = [
-    { id: 1, name: "Seminar", eventCount: 5, color: "from-red-500 to-red-600" },
-    { id: 2, name: "Workshop", eventCount: 3, color: "from-red-500 to-red-600" },
-    { id: 3, name: "Talkshow", eventCount: 2, color: "from-red-500 to-red-600" },
-    { id: 4, name: "Competition", eventCount: 4, color: "from-red-500 to-red-600" },
-  ];
+  const [categories, setCategories] = useState<any[]>([]);
+  const [deleteTarget, setDeleteTarget] = useState<{ id: number; name: string } | null>(null);
+
+  // Ambil data saat halaman dimuat
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await api.get('/categories');
+        setCategories(res.data);
+      } catch (err) {
+        console.error("Gagal memuat kategori:", err);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  // Fungsi hapus beneran
+  const executeDelete = async () => {
+    if (!deleteTarget) return;
+    try {
+      await api.delete(`/categories/${deleteTarget.id}`);
+      setCategories((prev) => prev.filter((c) => c.id !== deleteTarget.id));
+      setDeleteTarget(null);
+    } catch (err) {
+      console.error("Gagal menghapus:", err);
+      alert("Gagal menghapus.");
+    }
+  };
 
   return (
-    <div className="p-8">
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-8 gap-4">
+    <div className="p-8 max-w-7xl mx-auto space-y-8 bg-black text-gray-300 min-h-screen relative">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-8 gap-4 border-b border-zinc-900 pb-6">
         <div>
-          <h1 className="text-3xl font-bold text-red-900 mb-2">Kategori</h1>
-          <p className="text-lg text-red-800">Kelola semua kategori event</p>
+          <h1 className="text-3xl font-black bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent uppercase tracking-wider font-mono">
+            CATEGORY_NODES //
+          </h1>
+          <p className="text-sm font-mono text-emerald-500/80 mt-2 tracking-wide">
+            // Manajemen klasifikasi data dan parameter taktis Equator APT
+          </p>
         </div>
         <Link
           to="/dashboard/kategori/create"
-          className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center gap-2 w-full md:w-auto justify-center"
+          className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-bold font-mono text-xs uppercase tracking-wider shadow-lg shadow-emerald-900/20 transition-all flex items-center gap-2 w-full md:w-auto justify-center"
         >
-          <Plus size={20} />
+          <Plus size={16} />
           Tambah Kategori
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {categories.map((category) => (
-          <div
-            key={category.id}
-            className="bg-red-50 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 overflow-hidden group"
-          >
-            <div className={`h-32 bg-gradient-to-r ${category.color} flex items-end p-6`}>
-              <Tag className="w-12 h-12 text-white drop-shadow-lg" />
+      {/* List */}
+      <div className="bg-zinc-950 rounded-2xl border border-zinc-900 overflow-hidden">
+        {categories.map((cat) => (
+          <div key={cat.id} className="p-6 border-b border-zinc-900 flex justify-between items-center hover:bg-zinc-900/30">
+            <div>
+<h3 className="font-bold text-gray-200">{cat.nama}</h3>
             </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-red-900 mb-1 group-hover:text-red-800 transition-colors">
-                {category.name}
-              </h3>
-              <p className="text-2xl font-bold text-red-900 mb-2">{category.eventCount}</p>
-              <p className="text-sm text-red-700 mb-4">Event tersedia</p>
-
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  className="flex-1 text-center px-4 py-2 bg-red-100 hover:bg-red-200 text-red-800 text-sm font-medium rounded-lg transition-all shadow-sm hover:shadow-md"
-                  onClick={() => alert("Fitur edit belum diaktifkan (hanya create + index).")}
-                >
-                  Edit
-                </button>
-
-                <button
-                  type="button"
-                  className="flex-1 px-4 py-2 bg-red-200 hover:bg-red-300 text-red-900 text-sm font-medium rounded-lg transition-all shadow-sm hover:shadow-md"
-                  onClick={() => alert("Fitur hapus belum diaktifkan.")}
-                >
-                  Hapus
-                </button>
-              </div>
+            <div className="flex gap-2">
+              <Link to={`/dashboard/kategori/${cat.id}/edit`} className="p-2 border border-zinc-800 text-gray-400 hover:text-emerald-400 rounded-lg">
+                <Edit3 size={16} />
+              </Link>
+              <button
+                onClick={async () => {
+                  try {
+                    await api.delete(`/categories/${cat.id}`);
+                    setCategories((prev) => prev.filter((c) => c.id !== cat.id));
+                  } catch (err) {
+                    console.error("Gagal menghapus:", err);
+                    alert("Gagal menghapus.");
+                  }
+                }}
+                className="p-2 border border-zinc-800 text-gray-400 hover:text-red-400 rounded-lg"
+                title="Hapus kategori"
+              >
+                <Trash2 size={16} />
+              </button>
             </div>
           </div>
         ))}
       </div>
-
-      {categories.length === 0 && (
-        <div className="text-center py-16 mt-12">
-          <Tag className="mx-auto h-16 w-16 text-red-300 mb-4" />
-          <h3 className="text-lg font-medium text-red-900 mb-2">Belum ada kategori</h3>
-          <p className="text-red-800/80 mb-6">Buat kategori pertama untuk mengorganisir event</p>
-          <Link
-            to="/dashboard/kategori/create"
-            className="bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all inline-flex items-center gap-2"
-          >
-            <Plus size={20} />
-            Buat Kategori Pertama
-          </Link>
-        </div>
-      )}
     </div>
   );
 }
-

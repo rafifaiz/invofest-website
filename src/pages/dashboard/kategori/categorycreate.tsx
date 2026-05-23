@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
+import api from "../../../services/api";
 
 interface CategoryFormData {
   name: string;
@@ -18,13 +20,14 @@ const categorySchema = z.object({
 type FormComponentProps = {
   label: string;
   name: keyof CategoryFormData;
-  register: ReturnType<typeof useForm>[ 'register' ];
+  register: ReturnType<typeof useForm>['register'];
   error?: string;
   type?: string;
   placeholder?: string;
   children?: React.ReactNode;
 };
 
+// Sub-Komponen Input Cyber
 const Input: React.FC<FormComponentProps> = ({
   label,
   name,
@@ -33,18 +36,21 @@ const Input: React.FC<FormComponentProps> = ({
   type = "text",
   placeholder
 }) => (
-  <div className="flex flex-col gap-1">
-    <label className="font-medium text-gray-700 text-sm">{label}</label>
+  <div className="flex flex-col gap-1.5">
+    <label className="text-gray-400 text-xs font-mono tracking-wider">{label}</label>
     <input
       type={type}
       placeholder={placeholder}
       {...register(name)}
-      className={`border rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-red-700 transition-all ${error ? 'border-red-500 bg-red-50' : 'border-gray-200 bg-gray-50'}`}
+      className={`border rounded-lg px-4 py-2.5 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-zinc-900 text-gray-100 transition-all font-mono text-sm ${
+        error ? 'border-red-600 focus:ring-red-600' : 'border-zinc-800 focus:border-emerald-500'
+      }`}
     />
-    {error && <p className="text-red-600 text-xs mt-1">{error}</p>}
+    {error && <p className="text-red-500 text-xs mt-1 font-mono">! {error}</p>}
   </div>
 );
 
+// Sub-Komponen Select Cyber
 const Select: React.FC<FormComponentProps & { children: React.ReactNode }> = ({
   label,
   name,
@@ -52,18 +58,21 @@ const Select: React.FC<FormComponentProps & { children: React.ReactNode }> = ({
   error,
   children
 }) => (
-  <div className="flex flex-col gap-1">
-    <label className="font-medium text-gray-700 text-sm">{label}</label>
+  <div className="flex flex-col gap-1.5">
+    <label className="text-gray-400 text-xs font-mono tracking-wider">{label}</label>
     <select
       {...register(name)}
-      className={`border rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-red-700 transition-all ${error ? 'border-red-500 bg-red-50' : 'border-gray-200 bg-gray-50'}`}
+      className={`border rounded-lg px-4 py-2.5 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-zinc-900 text-gray-100 transition-all font-mono text-sm ${
+        error ? 'border-red-600 focus:ring-red-600' : 'border-zinc-800 focus:border-emerald-500'
+      }`}
     >
       {children}
     </select>
-    {error && <p className="text-red-600 text-xs mt-1">{error}</p>}
+    {error && <p className="text-red-500 text-xs mt-1 font-mono">! {error}</p>}
   </div>
 );
 
+// Sub-Komponen Textarea Cyber
 const Textarea: React.FC<FormComponentProps> = ({
   label,
   name,
@@ -71,15 +80,17 @@ const Textarea: React.FC<FormComponentProps> = ({
   error,
   placeholder
 }) => (
-  <div className="flex flex-col gap-1">
-    <label className="font-medium text-gray-700 text-sm">{label}</label>
+  <div className="flex flex-col gap-1.5">
+    <label className="text-gray-400 text-xs font-mono tracking-wider">{label}</label>
     <textarea
       placeholder={placeholder}
       rows={4}
       {...register(name)}
-      className={`border rounded-lg px-4 py-2 w-full focus:outline-none focus:ring-2 focus:ring-red-700 transition-all resize-vertical ${error ? 'border-red-500 bg-red-50' : 'border-gray-200 bg-gray-50'}`}
+      className={`border rounded-lg px-4 py-2.5 w-full focus:outline-none focus:ring-2 focus:ring-emerald-500 bg-zinc-900 text-gray-100 transition-all resize-none font-mono text-sm ${
+        error ? 'border-red-600 focus:ring-red-600' : 'border-zinc-800 focus:border-emerald-500'
+      }`}
     />
-    {error && <p className="text-red-600 text-xs mt-1">{error}</p>}
+    {error && <p className="text-red-500 text-xs mt-1 font-mono">! {error}</p>}
   </div>
 );
 
@@ -91,6 +102,7 @@ type ButtonProps = {
   onClick?: () => void;
 };
 
+// Sub-Komponen Button Cyber
 const Button: React.FC<ButtonProps> = ({
   label,
   type = "button",
@@ -99,22 +111,23 @@ const Button: React.FC<ButtonProps> = ({
   onClick
 }) => {
   const variants = {
-    primary: "bg-gradient-to-r from-red-600 to-red-700 text-white hover:from-red-700 hover:to-red-800 shadow-lg",
-    outline: "border-2 border-red-600 text-red-600 hover:bg-red-50 hover:border-red-700"
+    primary: "bg-emerald-600 text-white hover:bg-emerald-700 active:scale-[0.99]",
+    outline: "border border-zinc-800 text-gray-400 hover:bg-zinc-900 hover:text-gray-200"
   };
   return (
     <button
       type={type}
       disabled={isLoading}
       onClick={onClick}
-      className={`px-6 py-2.5 rounded-lg font-semibold transition-all duration-200 w-full ${variants[variant as keyof typeof variants]} ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+      className={`flex-1 py-3 rounded-lg font-bold font-mono text-xs uppercase tracking-wider transition-all duration-200 ${variants[variant]} ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
     >
-      {isLoading ? "⏳ Menyimpan..." : label}
+      {isLoading ? "⏳ INJECTING..." : label}
     </button>
   );
 };
 
 export default function CategoryCreate() {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -129,69 +142,81 @@ export default function CategoryCreate() {
 
   const onSubmit = async (data: CategoryFormData) => {
     setIsLoading(true);
-    setError("");
-    
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    console.log("Kategori baru:", data);
-    alert("✅ Kategori berhasil ditambahkan!");
-    reset();
-    setIsLoading(false);
+    try {
+      // backend hanya butuh `nama`
+      await api.post('/categories', { nama: data.name });
+      alert(" Kategori berhasil di-deploy ke sistem.");
+      navigate("/dashboard/kategori"); // Redirect setelah sukses
+    } catch (error) {
+      console.error(error);
+      setError("Gagal menyimpan kategori ke database.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <div className="p-8 max-w-2xl">
-      <div className="text-center mb-8">
-        <div className="inline-block w-20 h-2 bg-red-600 rounded-full mb-4 mx-auto"></div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Tambah Kategori Event</h1>
-        <p className="text-gray-600">Form lengkap untuk kategori baru</p>
+    <div className="min-h-screen bg-black p-8 max-w-2xl mx-auto text-gray-300">
+      
+      {/* Header - Cyber Emerald */}
+      <div className="text-center mb-10">
+        <div className="inline-block w-20 h-1 bg-emerald-500 rounded-full mb-4 mx-auto shadow-md shadow-emerald-500/50"></div>
+        <h1 className="text-3xl font-black bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent uppercase tracking-widest font-mono">
+          NEW_CATEGORY_NODE //
+        </h1>
+        <p className="text-gray-500 mt-1 font-mono text-xs tracking-wide">
+          Konfigurasi klasifikasi taktis untuk Equator APT
+        </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xl p-8">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      {/* Main Container Form */}
+      <div className="bg-zinc-950 rounded-2xl p-8 border border-zinc-900 shadow-2xl">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+          
           <Input
-            label="Nama Kategori"
+            label="// CATEGORY_NAME"
             name="name"
             register={register}
             error={errors.name?.message}
-            placeholder="e.g. Seminar"
+            placeholder="Contoh: Digital Forensics, Threat Hunting"
           />
 
           <Textarea
-            label="Deskripsi"
+            label="// CLASSIFICATION_DESCRIPTION"
             name="description"
             register={register}
             error={errors.description?.message}
-            placeholder="Deskripsi kategori (wajib)"
+            placeholder="Masukkan deskripsi cakupan log kategori..."
           />
 
           <Select
-            label="Warna Badge"
+            label="// BADGE_COLOR_HEX"
             name="color"
             register={register}
             error={errors.color?.message}
           >
-            <option value="">Pilih warna</option>
-            <option value="red">🔴 Merah</option>
-            <option value="blue">🔵 Biru</option>
-            <option value="green">🟢 Hijau</option>
-            <option value="yellow">🟡 Kuning</option>
-            <option value="purple">🟣 Ungu</option>
+            <option value="" className="bg-zinc-900 text-gray-500">Pilih skema warna</option>
+            <option value="emerald" className="bg-zinc-900">🟢 Emerald Green (Safe/Active)</option>
+            <option value="cyan" className="bg-zinc-900">🔵 Cyan Tech (Info/Internal)</option>
+            <option value="amber" className="bg-zinc-900">🟡 Amber Yellow (Warning/Restricted)</option>
+            <option value="crimson" className="bg-zinc-900">🔴 Crimson Red (Critical Breach)</option>
           </Select>
 
+          {/* System Error Notification Box */}
           {error && (
-            <div className="bg-red-50 border-l-2 border-red-200 text-red-600 px-4 py-3 rounded-lg">
-              ❌ {error}
+            <div className="bg-red-950/20 border border-red-900/50 text-red-400 px-4 py-2.5 rounded-lg text-xs font-mono">
+              [!] {error}
             </div>
           )}
 
+          {/* Tombol Eksekusi */}
           <div className="flex gap-4 pt-4">
-            <Button type="submit" label="Simpan Kategori" variant="primary" isLoading={isLoading} />
-            <Button type="button" label="Reset Form" variant="outline" onClick={() => reset()} />
+            <Button type="submit" label="Inject Category" variant="primary" isLoading={isLoading} />
+            <Button type="button" label="Clear System" variant="outline" onClick={() => reset()} />
           </div>
+          
         </form>
       </div>
     </div>
   );
 }
-
